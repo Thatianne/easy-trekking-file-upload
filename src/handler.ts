@@ -46,7 +46,11 @@ const myHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
 
     return {
       statusCode: 200,
-      body: JSON.stringify(results)
+      body: JSON.stringify(results),
+      headers: {
+       'Access-Control-Allow-Origin': '*',
+       'Access-Control-Allow-Headers': '*',
+     },
     };
   } catch (err) {
     console.log(err);
@@ -54,7 +58,11 @@ const myHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
       statusCode: 500,
       body: JSON.stringify({
         message: 'Some error happened'
-      })
+      }),
+      headers: {
+       'Access-Control-Allow-Origin': '*',
+       'Access-Control-Allow-Headers': '*',
+     },
     };
   }
 };
