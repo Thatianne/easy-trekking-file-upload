@@ -1,0 +1,31 @@
+service: easy-trekking-file-upload
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-2
+  memorySize: 512
+  timeout: 10
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Resource: "*"
+          Action:
+            - 's3:DeleteObject'
+            - 's3:GetObject'
+            - 's3:ListBucket'
+            - 's3:PutObject'
+            - 's3:PutObjectAcl'
+functions:
+  app:
+    handler: dist/handler.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
